@@ -23,7 +23,7 @@
 ;Funcion: Verifica si una lista corresponde al TDA card, devuelve true o false
 (define card? (lambda (lista)
         (if (and (number? (car lista)) (list? (cdr lista)))
-            #t
+            (= (car lista) (length (cadr lista)))
             #f
         )
     )

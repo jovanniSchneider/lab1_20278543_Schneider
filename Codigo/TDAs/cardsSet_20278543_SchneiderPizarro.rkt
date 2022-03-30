@@ -36,5 +36,7 @@
 )
 
 
+
 ;Pruebas
 (define conjunto (list 3 3 3 (list (card 3 "pepe" "juan" "s") (card 3 "jaja" "juan" "a") (card 3 "pepe" "caca" "a"))))
+(define a (string-split "0 1 2 3 4 5 6 7 8 9" " "))
