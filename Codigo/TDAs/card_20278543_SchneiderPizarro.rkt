@@ -8,7 +8,7 @@
 ;Dominio: number X list
 ;Recorrido: list
 ;Funcion: Crea una entidad de card en caso de que los parametros ingresados correspondan al dominio del TDA
-(define card (lambda (cardinal . figuras)
+(define card (lambda (cardinal figuras)
         (if (and (number? cardinal) (list? figuras) (= cardinal (length figuras)))
             (list cardinal figuras)
             null
@@ -73,6 +73,13 @@
     )
 )
 
+(define card->seleccionarNthElement (lambda (elements posicion counter)
+        (if (= (+ 1 counter) posicion)
+            (car elements)
+            (card->seleccionarNthElement (cdr elements) posicion (+ counter 1))
+        )
+    )
+)
 
 ;Ejemplo de uso
-(define e1 (card 3 1 2 2))
+(define e1 (card 3 (list 1 2 2)))
