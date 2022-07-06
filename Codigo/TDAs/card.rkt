@@ -6,7 +6,7 @@
 ;card = Simbolo1 X Simbolo2 X ... X SimboloN
 
 ;------------Constructor-----------
-;Dom: integet x list
+;Dom: integer x list
 ;Recorrido: list|null
 (define card (lambda ( cantidad . figuras )
         (if (and (list? figuras) (= (length figuras) cantidad))
@@ -49,9 +49,12 @@
 
 ;-------------Modificadores--------------
 (define card->addSymbol (lambda(carta symbol)
-        (if (card? carta)
+        (if (null? carta)
             (append carta (list symbol))
-            null
+            (if (card? carta)
+                (append carta (list symbol))
+                null
+            )
         )
     )
 )
@@ -76,6 +79,39 @@
 (define card->just1Time (lambda (carta) 
             (lambda (simbolo)
                 (= 1 (length (filter (lambda (simb)(equal? simb simbolo))carta))) 
+        )
+    )
+)
+
+;Dominio: card x card
+;Recorrido: Bool
+;Funcion: Verifica que 2 cartas solo contengan 1 elemento en comun
+(define card->just1Match(lambda(carta1 carta2)
+        (card->just1MatchAux carta1 carta2 0)
+    )
+)
+
+(define card->just1MatchAux(lambda(carta1 carta2 matches)
+        (if (> matches 1)
+            #f
+            (if (= (length carta1) 0)
+                (if (= matches 0)
+                    #f
+                    #t
+                )
+                (if (card->SymbolIsIn? (card->getFirstSymbol carta1) carta2)
+                    (card->just1MatchAux (card->getNextSymbols carta1) carta2 (+ matches 1))
+                    (card->just1MatchAux (card->getNextSymbols carta1) carta2 matches)
+                )
+            )
+        )
+    )
+)
+
+(define card->SymbolIsIn? (lambda (symbol carta)
+        (if (not(= (length (filter (lambda (simbolo) (= simbolo symbol)) carta)) 0))
+            #t
+            #f
         )
     )
 )
