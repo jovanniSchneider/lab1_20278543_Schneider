@@ -69,28 +69,51 @@
     )
 )
 
+;Dom: 1 entero
+;Rec: un booleano
+;Verifica si n es potencia de un numero primo, eso incluye si es en si mismo un numero primo
 (define isPowerOfPrime (lambda(n)
         (not(null?(filter(lambda (primo) (isPowerOf n primo)) (primesToN n))))
     )
 )
 
+;Dom: list x int
+;Rec: int
+;Retorna el indice o posicion de un elemento en una lista, si no se encuentra retorna -1
 (define obtenerPosicion (lambda (lista elemento)
-        (obtenerPosicionAux lista elemento 1)
+        (if (isIn? lista elemento)
+            (obtenerPosicionAux lista elemento 1)
+            -1
+        )
     )
 )
-
+;Dom: list x int x int
+;Rec: int
+;Retorna el indice o posicion de un elemento en una lista utilizando recursion de cola
 (define obtenerPosicionAux (lambda (lista elemento contador)
-        (if (null? lista)
-            -1
             (if (equal? (car lista) elemento)
                 contador
                 (obtenerPosicionAux (cdr lista) elemento (+ 1 contador))
             )
-        )
     )
 )
 
+;Dom: list x element
+;Rec: bool
+;Verifica si un elemento se encuentra en una lista
 (define isIn? (λ (lista elemento)
         (not(null? (filter (λ (listElement) (equal? listElement elemento)) lista)))
     )
+)
+
+;Funcion seudoaleatoria
+;Dom: int(seed)
+;Rec: int
+(define m 2147483647)
+(define a 1103515245)
+(define c 12345)
+
+(define randomFn (lambda (xn)
+                   (modulo (modulo (+ (* a xn) c) m) 3)
+                 )
 )

@@ -1,6 +1,7 @@
 #lang racket
 
 (provide (all-defined-out))
+(require "../functions.rkt")
 
 ;Representacion: 
 ;card = Simbolo1 X Simbolo2 X ... X SimboloN
@@ -91,6 +92,9 @@
     )
 )
 
+;Dominio: card x card
+;Recorrido: Bool
+;Funcion: Verifica que 2 cartas solo contengan 1 elemento en comun utilizando recursion de cola
 (define card->just1MatchAux(lambda(carta1 carta2 matches)
         (if (> matches 1)
             #f
@@ -109,7 +113,7 @@
 )
 
 (define card->SymbolIsIn? (lambda (symbol carta)
-        (if (not(= (length (filter (lambda (simbolo) (= simbolo symbol)) carta)) 0))
+        (if (not(= (length (filter (lambda (simbolo) (if (char? simbolo) (char=? simbolo symbol) (equal? simbolo symbol))) carta)) 0))
             #t
             #f
         )
