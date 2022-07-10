@@ -28,7 +28,7 @@
 
 (define cardsSet->dobble? (lambda (CS)
         (if (and (cardsSet->allCardsJustDifferentSymbols (cadr CS)) (cardsSet->allCardsJust1Match (cadr CS)))
-            (cardsSet->order (length(car(cadr CS))))
+            (isPowerOfPrime(cardsSet->order (length(car(cadr CS)))))
             #f
         )
     )
@@ -50,13 +50,7 @@
 ;Dom:CS
 ;Rec: list(card)
 ;Devuelve la lista de cartas del set
-(define cardsSet->getCartas(λ (CS)
-        (if(cardsSet->dobble? CS)
-            (cadr CS)
-            null
-        )
-    )
-)
+(define cardsSet->getCartas cadr)
 ;Dom:CS
 ;Rec: list(elements)
 ;Devuelve la lista de elementos con los que se construyó el set
